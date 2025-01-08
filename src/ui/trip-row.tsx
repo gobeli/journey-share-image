@@ -1,15 +1,71 @@
 import { TripView } from "../functions/ojp";
 import { format } from "date-fns";
+import { Share } from "./icons/share";
 
 import classes from './trip-row.module.css';
-import { Share } from "./icons/share";
-import { For } from "solid-js/web";
 
-export function TripRow({ trip }: { trip: TripView }) {
+export function TripRowItem({trip}: { trip: TripView }) {
   const fromTime = format(trip.stats.startDatetime, 'HH:mm');
   const toTime = format(trip.stats.endDatetime, 'HH:mm');
-  const stylesheets = [...document.head.querySelectorAll('style')].filter(s => s.innerHTML.includes(classes.row) || s.innerHTML.includes(':root'))
 
+  // Use style tag to render correctly inside an svg
+  const css = `
+    :root {
+      font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    }
+
+    .time,
+    .points {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .timeSeparator {
+      height: 2px;
+      flex: 1;
+      background-color: hsl(55 10% 79%);
+      position: relative;
+    }
+
+    .timeSeparator:after {
+      content: '';
+      height: 10px;
+      width: 10px;
+      border-radius: 100%;
+      background-color: hsl(55 10% 79%);
+      right: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .points {
+      color: hsl(50 3% 42%);
+      font-size: 12px;
+    }
+  `
+
+  return (
+    <>
+      <style>
+        {css}
+      </style>
+      <div class="points">
+        <span>{trip.from.from.name}, Gl. {trip.from.from.platform?.actualPlatform ?? trip.from.from.platform?.plannedPlatform}</span>
+        <span>{trip.to.to.name}</span>
+      </div>
+      <div class="time">
+        <span>{fromTime}</span>
+        <span class="timeSeparator"></span>
+        <span>{toTime}</span>
+      </div>
+    </>
+  )
+}
+
+export function TripRow({ trip }: { trip: TripView }) {
   let svgEl;
 
   function share() {
@@ -36,7 +92,7 @@ export function TripRow({ trip }: { trip: TripView }) {
         text: `Von ${trip.from.from.name} nach ${trip.to.to.name}`,
         url: location.href,
         files: [ file ]
-      })
+      });
     };
 
     img.src = "data:image/svg+xml;base64," + btoa(svgEl!.outerHTML);
@@ -44,15 +100,7 @@ export function TripRow({ trip }: { trip: TripView }) {
 
   return (
     <div class={classes.row}>
-      <div class={classes.points}>
-        <span>{trip.from.from.name}, Gl. {trip.from.from.platform?.actualPlatform ?? trip.from.from.platform?.plannedPlatform}</span>
-        <span>{trip.to.to.name}</span>
-      </div>
-      <div class={classes.time}>
-        <span>{fromTime}</span>
-        <span class={classes.timeSeparator}></span>
-        <span>{toTime}</span>
-      </div>
+      <TripRowItem trip={trip} />
       <div class={classes.share}>
         <button type="button" onclick={() => share()}>
           <Share />
@@ -61,19 +109,8 @@ export function TripRow({ trip }: { trip: TripView }) {
 
       <svg xmlns="http://www.w3.org/2000/svg" height="56" width="316" ref={svgEl} class="hidden">
         <foreignObject width="100%" height="100%">
-          <For each={stylesheets}>
-            {(item) => <style innerHTML={item.innerHTML}></style>}
-          </For>
           <div {...{xmlns: 'http://www.w3.org/1999/xhtml'}} style="padding: 8px">
-            <div class={classes.points}>
-              <span>{trip.from.from.name}, Gl. {trip.from.from.platform?.actualPlatform ?? trip.from.from.platform?.plannedPlatform}</span>
-              <span>{trip.to.to.name}</span>
-            </div>
-            <div class={classes.time}>
-              <span>{fromTime}</span>
-              <span class={classes.timeSeparator}></span>
-              <span>{toTime}</span>
-            </div>
+            <TripRowItem trip={trip} />
           </div>
         </foreignObject>
       </svg>

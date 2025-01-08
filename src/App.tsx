@@ -3,15 +3,13 @@ import { LocationSearch } from './ui/location-search.tsx'
 import { Location } from 'ojp-sdk'
 import { effect } from 'solid-js/web';
 import { searchTrips, TripView } from './functions/ojp.ts';
-import { mockTrips } from './mock/trips.ts';
 import { TripRow } from './ui/trip-row.tsx';
 
 function App() {
   const [from, setFrom] = createSignal<Location>();
   const [to, setTo] = createSignal<Location>();
-  const [trips, setTrips] = createSignal<TripView[]>(mockTrips);
+  const [trips, setTrips] = createSignal<TripView[]>([]);
   
-  effect(() => { console.log(trips()) })
   effect(() => {
     if (!from() || !to()) {
       return;
