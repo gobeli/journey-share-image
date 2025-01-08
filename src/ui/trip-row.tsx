@@ -64,7 +64,7 @@ export function TripRow({ trip }: { trip: TripView }) {
           <For each={stylesheets}>
             {(item) => <style innerHTML={item.innerHTML}></style>}
           </For>
-          <div xmlns="http://www.w3.org/1999/xhtml" style="padding: 8px">
+          <div {...{xmlns: 'http://www.w3.org/1999/xhtml'}} style="padding: 8px">
             <div class={classes.points}>
               <span>{trip.from.from.name}, Gl. {trip.from.from.platform?.actualPlatform ?? trip.from.from.platform?.plannedPlatform}</span>
               <span>{trip.to.to.name}</span>
