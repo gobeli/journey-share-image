@@ -1,0 +1,56 @@
+.row {
+  padding: var(--s-2);
+  margin: 0 calc(var(--s-2)* -1);
+  border-top: 1px solid var(--color-ui);
+}
+
+.row:last-child {
+  padding-bottom: 0;
+}
+
+.time,
+.points {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+}
+
+.timeSeparator {
+  height: 2px;
+  flex: 1;
+  background-color: var(--color-ui-3);
+  position: relative;
+}
+
+.timeSeparator:after {
+  content: '';
+  height: 10px;
+  width: 10px;
+  border-radius: 100%;
+  background-color: var(--color-ui-3);
+  right: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.points {
+  color: var(--color-tx-2);
+  font-size: 12px;
+}
+
+.share {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--s-1);
+}
+
+.share button {
+  appearance: none;
+  border: none;
+  color: var(--color-tx-2);
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}

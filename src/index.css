@@ -1,0 +1,78 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --color-bg: hsl(48 100% 97%);
+  --color-bg-2: hsl(51 33% 92%);
+
+  --color-ui: hsl(51 21% 88%);
+  --color-ui-2: hsl(50 14% 83%);
+  --color-ui-3: hsl(55 10% 79%);
+
+  --color-tx: hsl(0 3% 6%);
+  --color-tx-2: hsl(50 3% 42%);
+  --color-tx-3: hsl(49 7% 70%);
+
+  --color-re: hsl(3 62% 42%);
+  --color-pu: rgb(139, 126, 200);
+
+  --radius: 6px;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+}
+
+.dark {
+  --color-bg: hsl(0 3% 6%);
+  --color-bg-2: hsl(30 4% 11%);
+
+  --color-ui: hsl(30 3% 15%);
+  --color-ui-2: hsl(40 3% 20%);
+  --color-ui-3: hsl(30 3% 24%);
+
+  --color-tx: hsl(55 10% 79%);
+  --color-tx-2: hsl(43 3% 52%);
+  --color-tx-3: hsl(45 2% 33%);
+
+  --color-re: hsl(5 61% 54%);
+}
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-tx);
+}
+
+.container {
+  max-width: 768px;
+  margin: auto;
+  padding: 0 var(--s-2);
+}
+
+.container-small {
+  max-width: 300px;
+  margin: auto;
+  padding: 0 var(--s-2);
+}
+
+.card {
+  border: 1px solid var(--color-ui);
+  background-color: var(--color-bg-2);
+  padding: var(--s-2);
+  border-radius: var(--radius);
+}
+
+/** Utilities **/
+
+.center {
+  text-align: center;
+}
+
+.flow > * + * {
+  margin-top: var(--flow-space, var(--s-2));
+}
+
+.hidden {
+  display: none;
+}
