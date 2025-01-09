@@ -1,4 +1,4 @@
-import { createResource, createSignal, For, Match, Show, Switch } from 'solid-js'
+import { createResource, createSignal, For, Match, Switch } from 'solid-js'
 import { LocationSearch } from './ui/location-search.tsx'
 import { Location } from 'ojp-sdk'
 import { searchTrips } from './functions/ojp.ts';
